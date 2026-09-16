@@ -67,17 +67,18 @@ export function WeekDetail({ weeks, teamNames, openingWeekTopHalf }: Props) {
         </div>
       </div>
 
-      <table className="week-table">
+      <div className="week-table-scroll">
+        <table className="week-table">
         <thead>
           <tr>
             <th>Team</th>
             <th className="num">Score</th>
-            {!isOpening && <th>Opponent</th>}
-            {!isOpening && <th className="num">Opp</th>}
+            {!isOpening && <th className="col-opp">Opponent</th>}
+            {!isOpening && <th className="num col-oppscore">Opp</th>}
             <th className="num">{isOpening ? "Split" : "Res"}</th>
             <th className="num">Rank</th>
-            <th className="num">{isOpening ? "Half" : "H2H"}</th>
-            <th className="num">Rk</th>
+            <th className="num col-component">{isOpening ? "Half" : "H2H"}</th>
+            <th className="num col-component">Rk</th>
             <th className="num">VP</th>
           </tr>
         </thead>
@@ -90,10 +91,14 @@ export function WeekDetail({ weeks, teamNames, openingWeekTopHalf }: Props) {
                 <td className="team-cell">{name(tw.rosterId)}</td>
                 <td className="num">{formatScore(tw.score)}</td>
                 {!isOpening && (
-                  <td className="opp-cell">{name(tw.opponentRosterId)}</td>
+                  <td className="opp-cell col-opp">
+                    {name(tw.opponentRosterId)}
+                  </td>
                 )}
                 {!isOpening && (
-                  <td className="num">{opp ? formatScore(opp.score) : "—"}</td>
+                  <td className="num col-oppscore">
+                    {opp ? formatScore(opp.score) : "—"}
+                  </td>
                 )}
                 <td className="num">
                   {isOpening ? (
@@ -107,14 +112,15 @@ export function WeekDetail({ weeks, teamNames, openingWeekTopHalf }: Props) {
                   )}
                 </td>
                 <td className="num">{tw.scoreRank}</td>
-                <td className="num">{formatVp(tw.h2hPoints)}</td>
-                <td className="num">{formatVp(tw.rankPoints)}</td>
+                <td className="num col-component">{formatVp(tw.h2hPoints)}</td>
+                <td className="num col-component">{formatVp(tw.rankPoints)}</td>
                 <td className="num vp-cell">{formatVp(tw.victoryPoints)}</td>
               </tr>
             );
           })}
         </tbody>
-      </table>
+        </table>
+      </div>
     </section>
   );
 }
